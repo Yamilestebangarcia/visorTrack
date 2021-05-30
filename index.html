@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visualiza tus rutas</title>
+    <!--   graficas -->
+
+    <link
+      rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css"
+    />
+
+    <!--leaflet -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+
+     <!-- reset styles -->
+    <link rel="stylesheet" href="css/normalize.css" />
+    <!-- custom styles -->
+    <link rel="stylesheet" href="css/index.css" />
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
+    ></script>
+
+
+
+    <!--   ---------------------------graficas------------------------- -->
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+  </head>
+
+  <body>
+    <div class="error quitar" id="error"><p>Error Archivo corrupto: No se puede leer</p></div>
+  <div class="menuMovil"><div class="classhamburgesa" id="hamburgesa"><svg class="hamburgesa" viewBox="0 0 100 80" width="40" height="40">
+    <rect width="100" height="15" rx=10></rect>
+    <rect y="30" width="100" height="15"  rx=10></rect>
+    <rect y="60" width="100" height="15" rx=10></rect>
+  </svg></div></div>
+    <nav class="nav">
+      <ul class="nav_ul" id="nav_ul">
+        <li id="btnCargar" class="nav_ul_li">Cargar Rutas</li>
+        <li class="nav_ul_li">Cambiar de mapa
+          <ul class="submenu">
+            <li class="submenu_item" id="maptillerOutdoor"> Maptiller Outdoor </li>
+            <li class="submenu_item" id="cycle">Cycle</li>
+            <li class="submenu_item" id="Landscape"> Landscape </li>
+            <li class="submenu_item" id="outdoors"> Outdoors </li>
+            <li class="submenu_item" id="orto"> Ortofoto</li>
+          </ul>
+        </li>
+        <li class="nav_ul_li">Acerca de..</li>
+      </ul>
+    </nav>
+    <h1 class="h1">Visualiza tus rutas</h1>
+    <div class="mapa_info quitar" id="mapa_info">
+      <div id="mapa" class="mapa"></div>
+      <div class="info" id="info">
+        <h3 class="info_titulo">información del track</h3>
+        <p class="nombre" id="nombre"></p>
+        <p class="creador" id="creador"></p>
+        <p class="distancia" id="distancia"></p>
+        <p class="desnivelPositivo" id="desnivelPositivo"></p>
+        <p class="desnivelNegativo" id="desnivelNegativo"></p>
+        <p class="alturaMax" id="alturaMax"></p>
+        <p class="alturaMin" id="alturaMin"></p>
+        <p id="nombre"></p>
+      </div>
+    </div>
+    <div class="grafica quitar" id="grafica"></div>
+    <div class="cargar" id="cargar">
+      <div id="loader" class="loader quitar">
+        <div class="loade"></div>
+      </div>
+      <form id="form" class="form">
+        <h2 class="cargar_h2">Carga la ruta que desees Visualizar</h2>
+        <label for="file" class="form_label">Pulse para selecionar el archivo gpx que desea abrir</label>
+        <input type="file" accept=".gpx" class="file" id="file" />
+      </form>
+    </div>
+    <script src="js/archivo.js"></script>
+  </body>
+</html>

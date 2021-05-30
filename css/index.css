@@ -1,0 +1,307 @@
+.h1 {
+  font-family: "Roboto", sans-serif;
+  padding: 30px;
+  text-align: center;
+  font-size: 3.5em;
+  font-weight: 300;
+}
+.menuMovil {
+  display: none;
+}
+.nav {
+  background-color: rgba(11, 98, 164, 0.7);
+  height: 40px;
+}
+.nav_ul {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0;
+}
+.nav_ul_li {
+  width: 180px;
+  min-width: 180px;
+  text-align: center;
+  list-style: none;
+  font-size: 1.2rem;
+  text-transform: capitalize;
+  cursor: pointer;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  color: white;
+  padding: 8px;
+  border-radius: 5px;
+}
+.nav_ul_li:hover,
+.submenu_item:hover {
+  background-color: rgba(11, 98, 164, 0.8);
+}
+.nav_ul_li:hover .submenu_item {
+  visibility: visible;
+}
+.submenu {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  padding: 8px;
+  width: 180px;
+}
+.submenu_item {
+  width: 180px;
+  background-color: rgba(11, 98, 164, 0.7);
+  padding: 8px 8px;
+  position: relative;
+  right: 16px;
+  visibility: hidden;
+}
+.mapa_info {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+}
+.mapa {
+  border: 2px solid cadetblue;
+  width: 50%;
+  border-radius: 8px;
+  min-width: 450px;
+  height: 579px;
+  margin-right: 40px;
+  margin-left: 40px;
+  margin-bottom: 50px;
+}
+.info {
+  margin-bottom: 50px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  width: 30%;
+  min-width: 250px;
+  border: 2px solid cadetblue;
+  border-radius: 8px;
+  text-align: center;
+}
+.info_titulo {
+  text-align: center;
+  text-transform: capitalize;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-size: 1.5rem;
+}
+.nombre,
+.creador,
+.distancia,
+.desnivelPositivo,
+.desnivelNegativo,
+.alturaMax,
+.alturaMin {
+  line-height: 28px;
+  text-transform: lowercase;
+}
+.cargar {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.loader {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loade {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 7px solid #f3f3f3;
+  border-top: 7px solid #555;
+  animation: cargar 2s linear infinite;
+}
+@keyframes cargar {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.form {
+  width: 50%;
+  height: 30%;
+  display: flex;
+  background-color: rgb(255, 255, 255);
+  border: solid 1px black;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 426px;
+  min-height: 274px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+}
+.cargar_h2 {
+  font-size: 1.5rem;
+  text-align: center;
+  text-transform: capitalize;
+  margin-bottom: 40px;
+  margin-top: 0;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+}
+.form_label {
+  font-size: 1.2rem;
+  text-align: center;
+}
+.file {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+.final-icon,
+.inicio-icon,
+.grafica-icon {
+  background-color: rgba(9, 185, 38, 0.8);
+  border-radius: 50%;
+  border: solid 1px black;
+}
+.final-icon {
+  background-color: rgba(241, 52, 52, 0.8);
+}
+.grafica-icon,
+.hover-icon:hover {
+  background-color: rgb(11, 98, 164);
+  border-radius: 50%;
+  border: solid 1px black;
+  color: 0000ff;
+}
+
+.track_cargado {
+  stroke: rgb(16, 27, 180);
+  stroke-opacity: 0.8;
+  stroke-width: 3.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.grafica {
+  border: 2px solid cadetblue;
+  margin-left: auto;
+  margin-right: auto;
+  height: 150px;
+  width: 90%;
+  border-radius: 8px;
+}
+.error {
+  background-color: red;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-size: 1.3rem;
+}
+/*estilos de leaflet*/
+/*elemeto de pie de mapa*/
+.leaflet-control-attribution {
+  display: none !important;
+}
+.leaflet-popup-content {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+}
+.leaflet-control-scale-line {
+  border-radius: 0px 0px 4px 4px !important;
+  border-left: 2px solid cadetblue !important;
+  border-right: 2px solid cadetblue !important;
+  border-bottom: 2px solid cadetblue !important;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 300 !important;
+}
+/*graficas*/
+/*eje de ordenadas*/
+div.morris-hover.morris-default-style {
+  display: none !important;
+}
+/*puntos de la grafica*/
+circle {
+  stroke: transparent;
+  fill: transparent;
+}
+circle:hover {
+  fill: rgb(11, 98, 164);
+}
+.circulo-visible {
+  fill: rgb(11, 98, 164);
+}
+/*label de ejes*/
+tspan {
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 300 !important;
+}
+.quitar {
+  display: none;
+}
+@media (max-width: 480px) {
+  .form {
+    min-width: 280px;
+  }
+  .cargar_h2 {
+    font-size: 1.2rem;
+  }
+  .form_label {
+    font-size: 1rem;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+@media (max-width: 550px) {
+  .menuMovil {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    height: 70px;
+    background-color: rgba(11, 98, 164, 0.7);
+  }
+  .classhamburgesa {
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+  }
+  .nav {
+    height: auto;
+    width: 200px;
+  }
+  .nav_ul {
+    display: none;
+    flex-direction: column;
+    justify-content: start;
+    height: auto;
+    width: 200px;
+  }
+  .poner {
+    display: block;
+  }
+  .mapa {
+    width: 90%;
+    min-width: 260px;
+  }
+}
