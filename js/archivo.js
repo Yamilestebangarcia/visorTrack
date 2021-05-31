@@ -324,29 +324,35 @@ document.addEventListener("click", (e) => {
   if (e.target.getAttribute("id") == "maptillerOutdoor") {
     orto.setOpacity(0);
     googleHybrid.setOpacity(0);
+    capaBase.setOpacity(1);
     capaBase.setUrl(maptillerOutdoor, false);
   }
   if (e.target.getAttribute("id") == "cycle") {
     orto.setOpacity(0);
     googleHybrid.setOpacity(0);
+    capaBase.setOpacity(1);
     capaBase.setUrl(cycle, false);
   }
   if (e.target.getAttribute("id") == "Landscape") {
     orto.setOpacity(0);
     googleHybrid.setOpacity(0);
+    capaBase.setOpacity(1);
     capaBase.setUrl(Landscape, false);
   }
   if (e.target.getAttribute("id") == "outdoors") {
     orto.setOpacity(0);
     googleHybrid.setOpacity(0);
+    capaBase.setOpacity(1);
     capaBase.setUrl(outdoors, false);
   }
   if (e.target.getAttribute("id") == "googleHybrid") {
     orto.setOpacity(0);
+    capaBase.setOpacity(0);
     googleHybrid.setOpacity(1);
   }
   if (e.target.getAttribute("id") == "orto") {
     googleHybrid.setOpacity(0);
+    capaBase.setOpacity(0);
     orto.setOpacity(1);
   }
   if (
