@@ -56,6 +56,7 @@
   width: 180px;
 }
 .submenu_item {
+  z-index: 100;
   width: 180px;
   background-color: rgba(11, 98, 164, 0.7);
   padding: 8px 8px;
@@ -69,7 +70,7 @@
   flex-wrap: wrap;
   margin-bottom: 50px;
   position: relative;
-  z-index: -1;
+  z-index: 10;
 }
 .mapa {
   border: 2px solid cadetblue;
