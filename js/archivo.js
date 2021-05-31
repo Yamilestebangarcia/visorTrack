@@ -137,9 +137,9 @@ const parsear = (txt) => {
     } m`;
     $alturaMin.innerText = `Altura Minima: \n ${desnivelAcumulado(elev)[3]} m`;
     $alturaMax.innerText = `Altura Maxima: \n ${desnivelAcumulado(elev)[2]} m`;
-    $distancia.innerText = `Distancia recorrida: ${calculoDistacia(
-      latLong
-    )} Km`;
+    $distancia.innerText = `Distancia recorrida: ${
+      Math.round(calculoDistacia(latLong) * 100) / 100
+    } Km`;
 
     crearGrafica(elev);
   } else {
