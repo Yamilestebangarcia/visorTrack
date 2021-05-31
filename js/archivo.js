@@ -33,8 +33,9 @@ let menuVisible = true;
 /*servidores de capas base*/
 const maptillerOutdoor =
   "https://api.maptiler.com/maps/outdoor/{z}/{x}/{y}.png?key=JApHX2LYyHexQw1jhT4J";
-const cycle =
-  "https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=467b139a90ae425baeeb1a2de27167bd";
+const cycle = "http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}";
+// "https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=467b139a90ae425baeeb1a2de27167bd";
+
 const Landscape =
   "https://tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=467b139a90ae425baeeb1a2de27167bd";
 const outdoors =
@@ -53,6 +54,13 @@ const orto = L.tileLayer.wms(
     version: "1.3.0", //wms version (ver get capabilities)
     attribution:
       "PNOA WMS. Cedido por © Instituto Geográfico Nacional de España",
+  }
+);
+const googleHybrid = L.tileLayer(
+  "http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}",
+  {
+    maxZoom: 20,
+    subdomains: ["mt0", "mt1", "mt2", "mt3"],
   }
 );
 /*propiedades icono */
@@ -219,6 +227,9 @@ CargarMapa = (lat, long, latLong) => {
   /*creo la capa*/
 
   capaBase.addTo(mymap);
+  googleHybrid.addTo(mymap);
+  googleHybrid.setOpacity(0);
+
   orto.addTo(mymap);
   orto.setOpacity(0);
   L.control
@@ -312,21 +323,30 @@ document.addEventListener("click", (e) => {
   }
   if (e.target.getAttribute("id") == "maptillerOutdoor") {
     orto.setOpacity(0);
+    googleHybrid.setOpacity(0);
     capaBase.setUrl(maptillerOutdoor, false);
   }
   if (e.target.getAttribute("id") == "cycle") {
     orto.setOpacity(0);
+    googleHybrid.setOpacity(0);
     capaBase.setUrl(cycle, false);
   }
   if (e.target.getAttribute("id") == "Landscape") {
     orto.setOpacity(0);
+    googleHybrid.setOpacity(0);
     capaBase.setUrl(Landscape, false);
   }
   if (e.target.getAttribute("id") == "outdoors") {
     orto.setOpacity(0);
+    googleHybrid.setOpacity(0);
     capaBase.setUrl(outdoors, false);
   }
+  if (e.target.getAttribute("id") == "googleHybrid") {
+    orto.setOpacity(0);
+    googleHybrid.setOpacity(1);
+  }
   if (e.target.getAttribute("id") == "orto") {
+    googleHybrid.setOpacity(0);
     orto.setOpacity(1);
   }
   if (
