@@ -311,7 +311,7 @@ const crearGrafica = (elev) => {
 /* ----------------eventos del HTML ---------------------------*/
 document.addEventListener("click", (e) => {
   console.log(e.target);
-  $prueba.innerHTML = e.target.getAttribute("id");
+  $prueba.innerHTML = e.target.tagName;
 
   if (e.target.getAttribute("id") == "btnCargar") {
     $cargar.classList.remove("quitar");
