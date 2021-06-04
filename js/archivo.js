@@ -15,7 +15,8 @@ const $mapa_info = document.getElementById("mapa_info");
 const $info = document.getElementById("info");
 const $cargar = document.getElementById("cargar");
 const $error = document.getElementById("error");
-const $grafica = document.getElementById("grafica");
+let $grafica = document.getElementById("grafica");
+const $contenedorGrafica = document.getElementById("contenedorGrafica");
 const $form = document.getElementById("form");
 const $loader = document.getElementById("loader");
 const $nav_ul = document.getElementById("nav_ul");
@@ -30,6 +31,8 @@ let Puntografica;
 let text;
 let elev;
 let menuVisible = true;
+let PoscionesTrack = [];
+let polylineTrack;
 
 /*servidores de capas base*/
 const maptillerOutdoor =
@@ -69,7 +72,10 @@ const iconInicio = L.divIcon({
   className: "inicio-icon",
   iconSize: [10, 10],
 });
-
+const iconFinal = L.divIcon({
+  className: "final-icon",
+  iconSize: [10, 10],
+});
 /* ----------------main Parseado---------------------------*/
 const txt = `<?xml version="1.0" encoding="UTF-8"?>
 
@@ -124,7 +130,8 @@ const parsear = (txt) => {
   }
   /*-----------------------cargo el mapa-----------------------------------*/
   if (latLong.length != 0) {
-    CargarMapa(latLong[0][0], latLong[0][1], latLong); //param posicion inicial del mapa
+    CargarMapa(latLong[0][0], latLong[0][1]); //param posicion inicial del mapa
+    cargarpuntos(latLong); //cargo los puntos
     /*-----------------------inserto la informacion-----------------------------------*/
     $creador.innerText =
       "Creado por: \n " + parsearEtiquetaAtributo(txt, "gpx", "creator");
@@ -144,6 +151,7 @@ const parsear = (txt) => {
 
     crearGrafica(elev);
   } else {
+    $error.innerHTML = "<p>Error Archivo corrupto: No se puede leer</p>";
     $error.classList.remove("quitar");
   }
 };
@@ -222,7 +230,7 @@ const longitudLatitud = (trkpt) => {
 };
 
 /* ----------------Cargo el mapa y track----------------------------*/
-CargarMapa = (lat, long, latLong) => {
+const CargarMapa = (lat, long) => {
   //creo mapa
   mymap = L.map("mapa").setView([lat, long], 12.5);
   /*creo la capa*/
@@ -239,13 +247,9 @@ CargarMapa = (lat, long, latLong) => {
     })
     .addTo(mymap);
   //inserto iconos
-
+};
+const cargarpuntos = (latLong) => {
   L.marker([latLong[0][0], latLong[0][1]], { icon: iconInicio }).addTo(mymap);
-
-  const iconFinal = L.divIcon({
-    className: "final-icon",
-    iconSize: [10, 10],
-  });
 
   L.marker([latLong[latLong.length - 1][0], latLong[latLong.length - 1][1]], {
     icon: iconFinal,
@@ -277,10 +281,12 @@ CargarMapa = (lat, long, latLong) => {
   mymap.fitBounds(polyline.getBounds());
 };
 
-const eliminarElementosMapa = (polyline) => {
-  map.removeLayer(polyline);
+/* const eliminarElementosMapa = (polyline) => {
+  mymap.removeLayer(polyline);
+}; */
+const eliminarmapa = () => {
+  mymap.remove();
 };
-
 /*-----------------------graficas-----------------------------------*/
 
 const crearGrafica = (elev) => {
@@ -306,6 +312,66 @@ const crearGrafica = (elev) => {
     labels: ["yamil"],
     axes: "y",
   });
+};
+const eliminarGrafica = () => {
+  $grafica.remove();
+  $grafica = document.createElement("div");
+  $grafica.classList.add("grafica");
+  $grafica.id = "grafica";
+  $contenedorGrafica.appendChild($grafica);
+};
+/*obtener posicion*/
+
+const obtenerPrimeraPoscion = () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((posicion) => {
+      console.log(posicion.coords.latitude);
+      console.log(posicion.coords.longitude);
+      if (mymap) {
+        eliminarmapa();
+        eliminarGrafica();
+      }
+      $grafica.classList.add("quitar");
+      CargarMapa(posicion.coords.latitude, posicion.coords.longitude);
+    });
+  } else {
+    $error.innerHTML = "<p>No se puede obtener la posicion</p>";
+    $error.classList.remove("quitar");
+  }
+};
+const obtenerPosicion = () => {
+  navigator.geolocation.watchPosition((position) => {
+    L.marker([position.coords.latitude, position.coords.longitude], {
+      icon: iconInicio,
+    }).addTo(mymap);
+    PoscionesTrack.push([position.coords.latitude, position.coords.longitude]);
+    polylineTrack = new L.polyline(PoscionesTrack, {
+      smoothFactor: 0,
+      className: "track_cargado",
+    }).addTo(mymap);
+  });
+};
+const obtenerPosicionLinea = () => {
+  navigator.geolocation.watchPosition((position) => {
+    PoscionesTrack.push([position.coords.latitude, position.coords.longitude]);
+    /*polylineTrack.addLatLng(L.latLng(37.26, -3.57));*/
+    polylineTrack.addLatLng(
+      L.latLng(position.coords.latitude, position.coords.longitude)
+    );
+  });
+};
+
+/*guardar track*/
+const guardarTrack = () => {
+  $form.classList.add("quitar");
+  $loader.classList.add("quitar");
+  $cargar.classList.add("quitar");
+  $mapa_info.classList.remove("quitar");
+  $info.classList.add("quitar");
+  obtenerPrimeraPoscion();
+  obtenerPosicion();
+  //obtenerPosicionLinea();
+  setInterval(obtenerPosicionLinea(), 10000);
 };
 
 /* ----------------eventos del HTML ---------------------------*/
@@ -368,15 +434,23 @@ document.addEventListener("click", (e) => {
       menuVisible = true;
     }
   }
+  if (
+    e.target.getAttribute("id") == "btnGuardar" ||
+    e.target.getAttribute("id") == "guardarTrack"
+  ) {
+    guardarTrack();
+  }
 });
 
 $file.addEventListener("change", (e) => {
   $form.classList.add("quitar");
   $loader.classList.remove("quitar");
+
   if (mymap != null) {
     mymap.off();
-    mymap.remove();
+    eliminarmapa();
     mymap = null;
+    eliminarGrafica();
   }
 
   const input = e.target;
@@ -387,6 +461,7 @@ $file.addEventListener("change", (e) => {
     $loader.classList.add("quitar");
     $cargar.classList.add("quitar");
     $mapa_info.classList.remove("quitar");
+    $info.classList.remove("quitar");
     $grafica.classList.remove("quitar");
     parsear(text);
   };

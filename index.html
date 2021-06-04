@@ -63,7 +63,7 @@
             <li class="submenu_item" id="googleHybrid"> googleHybrid</li>
           </ul>
         </li>
-        <li class="nav_ul_li">Acerca de..</li>
+        <li id="guardarTrack"class="nav_ul_li">Guardar track</li>
       </ul>
     </nav>
     <h1 class="h1">Visualiza tus rutas</h1>
@@ -81,7 +81,10 @@
         <p id="nombre"></p>
       </div>
     </div>
-    <div class="grafica quitar" id="grafica"></div>
+    <div id="contenedorGrafica">
+      <div class="grafica quitar" id="grafica"></div>
+    </div>
+    
     <div class="cargar" id="cargar">
       <div id="loader" class="loader quitar">
         <div class="loade"></div>
@@ -90,6 +93,7 @@
         <h2 class="cargar_h2">Carga la ruta que desees Visualizar</h2>
         <label for="file" class="form_label">Pulse para selecionar el archivo gpx que desea abrir</label>
         <input type="file" accept=".gpx" class="file" id="file" />
+        <input  id="btnGuardar" class="btnGuardar" type="button" value="guardar track">
       </form>
     </div>
     <script src="js/archivo.js"></script>
