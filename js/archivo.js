@@ -22,6 +22,7 @@ const $nav_ul = document.getElementById("nav_ul");
 const $checkboxBaseMap = document.querySelectorAll(
   ".leaflet-control-layers-selector"
 );
+const $prueba = document.getElementById("prueba");
 const parser = new DOMParser();
 let latLong;
 let mymap;
@@ -309,7 +310,9 @@ const crearGrafica = (elev) => {
 
 /* ----------------eventos del HTML ---------------------------*/
 document.addEventListener("click", (e) => {
-  console.log(e.target.classList);
+  console.log(e.target);
+  $prueba.innerHTML = e.target.getAttribute("id");
+
   if (e.target.getAttribute("id") == "btnCargar") {
     $cargar.classList.remove("quitar");
     $form.classList.remove("quitar");
@@ -357,7 +360,8 @@ document.addEventListener("click", (e) => {
   }
   if (
     e.target.getAttribute("id") == "hamburgesa" ||
-    e.target.classList[0] == "hamburgesa"
+    e.target.classList[0] == "hamburgesa" ||
+    e.target.tagName == "rect"
   ) {
     if (menuVisible) {
       $nav_ul.classList.add("poner");
