@@ -309,68 +309,72 @@ const crearGrafica = (elev) => {
 };
 
 /* ----------------eventos del HTML ---------------------------*/
-document.addEventListener("click", (e) => {
-  $prueba.innerHTML = e.target.tagName;
+document.addEventListener(
+  "click",
+  (e) => {
+    $prueba.innerHTML = e.target.tagName;
 
-  if (e.target.getAttribute("id") == "btnCargar") {
-    $cargar.classList.remove("quitar");
-    $form.classList.remove("quitar");
-    $mapa_info.classList.remove("quitar");
-    $grafica.classList.remove("quitar");
+    if (e.target.getAttribute("id") == "btnCargar") {
+      $cargar.classList.remove("quitar");
+      $form.classList.remove("quitar");
+      $mapa_info.classList.remove("quitar");
+      $grafica.classList.remove("quitar");
 
-    if (!$error.classList.contains("quitar")) {
-      $error.classList.add("quitar");
+      if (!$error.classList.contains("quitar")) {
+        $error.classList.add("quitar");
+      }
+      $file.value = "";
     }
-    $file.value = "";
-  }
-  if (e.target.getAttribute("id") == "maptillerOutdoor") {
-    orto.setOpacity(0);
-    googleHybrid.setOpacity(0);
-    capaBase.setOpacity(1);
-    capaBase.setUrl(maptillerOutdoor, false);
-  }
-  if (e.target.getAttribute("id") == "cycle") {
-    orto.setOpacity(0);
-    googleHybrid.setOpacity(0);
-    capaBase.setOpacity(1);
-    capaBase.setUrl(cycle, false);
-  }
-  if (e.target.getAttribute("id") == "Landscape") {
-    orto.setOpacity(0);
-    googleHybrid.setOpacity(0);
-    capaBase.setOpacity(1);
-    capaBase.setUrl(Landscape, false);
-  }
-  if (e.target.getAttribute("id") == "outdoors") {
-    orto.setOpacity(0);
-    googleHybrid.setOpacity(0);
-    capaBase.setOpacity(1);
-    capaBase.setUrl(outdoors, false);
-  }
-  if (e.target.getAttribute("id") == "googleHybrid") {
-    orto.setOpacity(0);
-    capaBase.setOpacity(0);
-    googleHybrid.setOpacity(1);
-  }
-  if (e.target.getAttribute("id") == "orto") {
-    googleHybrid.setOpacity(0);
-    capaBase.setOpacity(0);
-    orto.setOpacity(1);
-  }
-  if (
-    e.target.getAttribute("id") == "hamburgesa" ||
-    e.target.classList[0] == "hamburgesa" ||
-    e.target.tagName == "rect"
-  ) {
-    if (menuVisible) {
-      $nav_ul.classList.add("poner");
-      menuVisible = false;
-    } else {
-      $nav_ul.classList.remove("poner");
-      menuVisible = true;
+    if (e.target.getAttribute("id") == "maptillerOutdoor") {
+      orto.setOpacity(0);
+      googleHybrid.setOpacity(0);
+      capaBase.setOpacity(1);
+      capaBase.setUrl(maptillerOutdoor, false);
     }
-  }
-});
+    if (e.target.getAttribute("id") == "cycle") {
+      orto.setOpacity(0);
+      googleHybrid.setOpacity(0);
+      capaBase.setOpacity(1);
+      capaBase.setUrl(cycle, false);
+    }
+    if (e.target.getAttribute("id") == "Landscape") {
+      orto.setOpacity(0);
+      googleHybrid.setOpacity(0);
+      capaBase.setOpacity(1);
+      capaBase.setUrl(Landscape, false);
+    }
+    if (e.target.getAttribute("id") == "outdoors") {
+      orto.setOpacity(0);
+      googleHybrid.setOpacity(0);
+      capaBase.setOpacity(1);
+      capaBase.setUrl(outdoors, false);
+    }
+    if (e.target.getAttribute("id") == "googleHybrid") {
+      orto.setOpacity(0);
+      capaBase.setOpacity(0);
+      googleHybrid.setOpacity(1);
+    }
+    if (e.target.getAttribute("id") == "orto") {
+      googleHybrid.setOpacity(0);
+      capaBase.setOpacity(0);
+      orto.setOpacity(1);
+    }
+    if (
+      e.target.getAttribute("id") == "hamburgesa" ||
+      e.target.classList[0] == "hamburgesa" ||
+      e.target.tagName == "rect"
+    ) {
+      if (menuVisible) {
+        $nav_ul.classList.add("poner");
+        menuVisible = false;
+      } else {
+        $nav_ul.classList.remove("poner");
+        menuVisible = true;
+      }
+    }
+  },
+  true
+);
 
 $file.addEventListener("change", (e) => {
   $form.classList.add("quitar");
