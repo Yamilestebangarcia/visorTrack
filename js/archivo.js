@@ -20,6 +20,7 @@ const $contenedorGrafica = document.getElementById("contenedorGrafica");
 const $form = document.getElementById("form");
 const $loader = document.getElementById("loader");
 const $nav_ul = document.getElementById("nav_ul");
+const $guardarTrack = document.getElementById("guardarTrack");
 const $checkboxBaseMap = document.querySelectorAll(
   ".leaflet-control-layers-selector"
 );
@@ -33,6 +34,7 @@ let elev;
 let menuVisible = true;
 let PoscionesTrack = [];
 let polylineTrack;
+let guardandoTrack = false;
 
 /*servidores de capas base*/
 const maptillerOutdoor =
@@ -67,6 +69,7 @@ const googleHybrid = L.tileLayer(
     subdomains: ["mt0", "mt1", "mt2", "mt3"],
   }
 );
+
 /*propiedades icono */
 const iconInicio = L.divIcon({
   className: "inicio-icon",
@@ -132,6 +135,7 @@ const parsear = (txt) => {
   if (latLong.length != 0) {
     CargarMapa(latLong[0][0], latLong[0][1]); //param posicion inicial del mapa
     cargarpuntos(latLong); //cargo los puntos
+
     /*-----------------------inserto la informacion-----------------------------------*/
     $creador.innerText =
       "Creado por: \n " + parsearEtiquetaAtributo(txt, "gpx", "creator");
@@ -232,6 +236,7 @@ const longitudLatitud = (trkpt) => {
 /* ----------------Cargo el mapa y track----------------------------*/
 const CargarMapa = (lat, long) => {
   //creo mapa
+  console.log(lat, long);
   mymap = L.map("mapa").setView([lat, long], 12.5);
   /*creo la capa*/
 
@@ -323,15 +328,18 @@ const eliminarGrafica = () => {
 /*obtener posicion*/
 
 const obtenerPrimeraPoscion = () => {
+  console.log("OBTENR PRIMERA POSICION");
   if (navigator.geolocation) {
+    console.log("if");
+    //no entra en  navigator.geolocation.getCurrentPosition((posicion) => la segunda vez
     navigator.geolocation.getCurrentPosition((posicion) => {
-      console.log(posicion.coords.latitude);
-      console.log(posicion.coords.longitude);
+      console.log("navegator");
       if (mymap) {
         eliminarmapa();
         eliminarGrafica();
       }
       $grafica.classList.add("quitar");
+      console.log("OBTENER PRIEMEA POSICION 1");
       CargarMapa(posicion.coords.latitude, posicion.coords.longitude);
     });
   } else {
@@ -438,13 +446,28 @@ document.addEventListener("click", (e) => {
     e.target.getAttribute("id") == "btnGuardar" ||
     e.target.getAttribute("id") == "guardarTrack"
   ) {
-    guardarTrack();
+    if (guardandoTrack) {
+      PoscionesTrack = [];
+      console.log("zero", PoscionesTrack);
+      guardandoTrack = false;
+      $guardarTrack.innerText = "Guardar track";
+      eliminarmapa();
+      $mapa_info.classList.add("quitar");
+    } else {
+      $guardarTrack.innerText = "crear archivo";
+      guardandoTrack = true;
+      guardarTrack();
+      console.log("full", PoscionesTrack);
+    }
   }
 });
 
 $file.addEventListener("change", (e) => {
+  guardandoTrack = false;
+  $guardarTrack.innerText = "Guardar track";
   $form.classList.add("quitar");
   $loader.classList.remove("quitar");
+  PoscionesTrack = [];
 
   if (mymap != null) {
     mymap.off();
